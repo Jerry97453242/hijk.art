@@ -290,7 +290,7 @@ getData() {
             #    exit 1
             #fi
         fi
-    fi
+    #fi
 
     echo ""
     if [[ "$(needNginx)" = "no" ]]; then
