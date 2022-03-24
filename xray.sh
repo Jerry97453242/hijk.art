@@ -288,7 +288,7 @@ getData() {
             #    colorEcho ${BLUE}  "${DOMAIN} 解析结果：${resolve}"
             #    colorEcho ${RED}  " 域名未解析到当前服务器IP(${IP})!"
             #    exit 1
-            fi
+            #fi
         fi
     fi
 
