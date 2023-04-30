@@ -362,6 +362,7 @@ getData() {
         colorEcho $BLUE " 请选择流控模式:" 
         echo -e "   1) xtls-rprx-direct [$RED推荐$PLAIN]"
         echo "   2) xtls-rprx-origin"
+	echo "   3) xtls-rprx-vision"
         read -p "  请选择流控模式[默认:direct]" answer
         [[ -z "$answer" ]] && answer=1
         case $answer in
@@ -370,6 +371,9 @@ getData() {
                 ;;
             2)
                 FLOW="xtls-rprx-origin"
+                ;;
+	    3)
+                FLOW="xtls-rprx-vision"
                 ;;
             *)
                 colorEcho $RED " 无效选项，使用默认的xtls-rprx-direct"
