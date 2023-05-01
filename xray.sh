@@ -1885,7 +1885,7 @@ menu() {
     statusText
     echo 
 
-    read -p " 请选择操作[0-17]：" answer
+    read -p " 请选择操作[0-18]：" answer
     case $answer in
         0)
             exit 0
