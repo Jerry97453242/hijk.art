@@ -1962,6 +1962,8 @@ menu() {
             ;;
 	18)
 	    New="true"
+	    install
+	    ;;
         *)
             colorEcho $RED " 请选择正确的操作！"
             exit 1
