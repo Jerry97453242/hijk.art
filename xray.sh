@@ -357,7 +357,7 @@ getData() {
         colorEcho $BLUE " trojan密码：$PASSWORD"
     fi
 
-    if [[ "$XTLS" = "true" || "$New" = "true"]]; then
+    if [[ "$XTLS" = "true" || "$New" = "true" ]]; then
         echo ""
         colorEcho $BLUE " 请选择流控模式:" 
         echo -e "   1) xtls-rprx-direct [$RED推荐$PLAIN]"
