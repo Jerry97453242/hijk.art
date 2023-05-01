@@ -249,7 +249,7 @@ archAffix(){
 }
 
 getData() {
-    if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
+    if [[ "$TLS" = "true" || "$XTLS" = "true" || "$New" = "true" ]]; then
         echo ""
         echo " Xray一键脚本，运行之前请确认如下条件已经具备："
         colorEcho ${YELLOW} "  1. 一个伪装域名"
@@ -357,7 +357,7 @@ getData() {
         colorEcho $BLUE " trojan密码：$PASSWORD"
     fi
 
-    if [[ "$XTLS" = "true" ]]; then
+    if [[ "$XTLS" = "true" || "$New" = "true"]]; then
         echo ""
         colorEcho $BLUE " 请选择流控模式:" 
         echo -e "   1) xtls-rprx-direct [$RED推荐$PLAIN]"
@@ -404,7 +404,7 @@ getData() {
         colorEcho ${BLUE}  " ws路径：$WSPATH"
     fi
 
-    if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
+    if [[ "$TLS" = "true" || "$XTLS" = "true" ||"$New" = "true" ]]; then
         echo ""
         colorEcho $BLUE " 请选择伪装站类型:"
         echo "   1) 静态网站(位于/usr/share/nginx/html)"
