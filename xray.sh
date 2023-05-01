@@ -293,7 +293,7 @@ getData() {
 
     echo ""
     if [[ "$(needNginx)" = "no" ]]; then
-        if [[ "$TLS" = "true" ]]; then
+        if [[ "$TLS" = "true" "$New" = "true"]]; then
             read -p " 请输入xray监听端口[强烈建议443，默认443]：" PORT
             [[ -z "${PORT}" ]] && PORT=443
         else
@@ -1962,6 +1962,7 @@ menu() {
             ;;
 	18)
 	    New="true"
+	    TLS="true"
 	    install
 	    ;;
         *)
