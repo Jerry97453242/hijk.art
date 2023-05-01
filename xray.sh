@@ -1377,7 +1377,7 @@ EOF
 
 configXray() {
     mkdir -p /usr/local/xray
-    if [[ "$TROJAN" = "true" ]]; then
+    if [[ "$New" = "true" ]]; then
         vlessNewConfig
         return 0
     fi
