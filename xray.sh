@@ -1235,6 +1235,62 @@ vlessXTLSConfig() {
 EOF
 }
 
+
+vlessNewConfig() {
+    local uuid="$(cat '/proc/sys/kernel/random/uuid')"
+    cat > $CONFIG_FILE<<-EOF
+{
+  "inbounds": [{
+    "port": $PORT,
+    "protocol": "vless",
+    "settings": {
+      "clients": [
+        {
+          "id": "$uuid",
+          "flow": "$FLOW",
+          "level": 0
+        }
+      ],
+      "decryption": "none",
+      "fallbacks": [
+          {
+              "alpn": "http/1.1",
+              "dest": 80
+          },
+          {
+              "alpn": "h2",
+              "dest": 81
+          }
+      ]
+    },
+    "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+            "serverName": "$DOMAIN",
+            "alpn": ["http/1.1", "h2"],
+            "certificates": [
+                {
+                    "certificateFile": "$CERT_FILE",
+                    "keyFile": "$KEY_FILE"
+                }
+            ]
+        }
+    }
+  }],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
+  },{
+    "protocol": "blackhole",
+    "settings": {},
+    "tag": "blocked"
+  }]
+}
+EOF
+}
+
+
 vlessWSConfig() {
     local uuid="$(cat '/proc/sys/kernel/random/uuid')"
     cat > $CONFIG_FILE<<-EOF
@@ -1320,6 +1376,10 @@ EOF
 
 configXray() {
     mkdir -p /usr/local/xray
+    if [[ "$TROJAN" = "true" ]]; then
+        vlessNewConfig
+        return 0
+    fi
     if [[ "$TROJAN" = "true" ]]; then
         if [[ "$XTLS" = "true" ]]; then
             trojanXTLSConfig
@@ -1808,6 +1868,7 @@ menu() {
     echo -e "  ${GREEN}8.${PLAIN}   安装Xray-${BLUE}VLESS+TCP+XTLS${PLAIN}${RED}(推荐)${PLAIN}"
     echo -e "  ${GREEN}9.${PLAIN}   安装${BLUE}trojan${PLAIN}${RED}(推荐)${PLAIN}"
     echo -e "  ${GREEN}10.${PLAIN}  安装${BLUE}trojan+XTLS${PLAIN}${RED}(推荐)${PLAIN}"
+    echo -e "  ${GREEN}18.${PLAIN}   安装Xray-${BLUE}VLESS+TCP+TLS${PLAIN}${RED}(推荐)${PLAIN}"
     echo " -------------"
     echo -e "  ${GREEN}11.${PLAIN}  更新Xray"
     echo -e "  ${GREEN}12.  ${RED}卸载Xray${PLAIN}"
@@ -1899,6 +1960,8 @@ menu() {
         17)
             showLog
             ;;
+	18)
+	    New="true"
         *)
             colorEcho $RED " 请选择正确的操作！"
             exit 1
