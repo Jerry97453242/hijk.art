@@ -249,7 +249,7 @@ archAffix(){
 }
 
 getData() {
-    if [[ "$TLS" = "true" || "$XTLS" = "true" || "$New" = "true" ]]; then
+    if [[ "$TLS" = "true" || "$XTLS" = "true" ]]; then
         echo ""
         echo " Xray一键脚本，运行之前请确认如下条件已经具备："
         colorEcho ${YELLOW} "  1. 一个伪装域名"
@@ -1962,9 +1962,11 @@ menu() {
             ;;
 	18)
 	    New="true"
-	    TLS="true"
-	    install
-	    ;;
+            VLESS="true"
+            TLS="true"
+            XTLS="true"
+            install
+            ;;
         *)
             colorEcho $RED " 请选择正确的操作！"
             exit 1
